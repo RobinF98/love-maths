@@ -30,8 +30,8 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-    switch (gameType){
-        case "addition":  
+    switch (gameType) {
+        case "addition":
             displayAdditionQuestion(num1, num2);
             break;
         case "multiply":
@@ -39,6 +39,7 @@ function runGame(gameType) {
             break;
         case "subtract":
             displaySubtractQuestion(num1, num2);
+            break;
         default:
             alert(`unknown game type: ${gameType}`);
             throw `unknown game type: ${gameType}. Aborting!`;
@@ -82,10 +83,10 @@ function calculateCorrectAnswer() {
             return [operand1 + operand2, "addition"];
             break;
         case "x":
-            return[operand1 * operand2, "multiply"];
+            return [operand1 * operand2, "multiply"];
             break;
         case "-":
-            return[operand1 - operand2, "subtract"];
+            return [operand1 - operand2, "subtract"];
             break;
         default:
             alert(`Unimplemented operator: ${operator}`);
@@ -118,8 +119,8 @@ function displayAdditionQuestion(operand1, operand2) {
 }
 
 function displaySubtractQuestion(operand1, operand2) {
-    document.getElementById("operand1").textContent = operand1;
-    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
     document.getElementById("operator").textContent = "-";
 }
 
