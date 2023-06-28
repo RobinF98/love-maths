@@ -48,9 +48,15 @@ function checkAnswer() {
     let calcAns = calculateCorrectAnswer();
     let isCorrect = userAnswer === calcAns[0];
 
-    let msg = isCorrect ? "Nice one, big boy" : "Try harder, small fry";
-    alert(msg);
-    
+    if (isCorrect) {
+        alert("Nice one, big boy");
+        incrementScore();
+    } else {
+        alert("Try harder, small fry");
+        incrementWrongAnswer();
+    }
+
+
     runGame(calcAns[1]);
 
 }
@@ -73,11 +79,21 @@ function calculateCorrectAnswer() {
     }
 }
 
-function incrementScore() {
 
+/**
+ * Gets the current score from DOM and increments by 1
+ */
+function incrementScore() {
+    let score = parseInt(document.getElementById("score").textContent);
+    document.getElementById("score").textContent = ++score;
 }
 
+/**
+ * Gets incorrect score from DOM and increments by 1
+ */
 function incrementWrongAnswer() {
+    let score = parseInt(document.getElementById("incorrect").textContent);
+    document.getElementById("incorrect").textContent = ++score;
 
 }
 
