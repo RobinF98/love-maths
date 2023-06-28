@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let button of buttons) {
         button.addEventListener("click", function () {
             if (this.getAttribute("data-type") === "submit") {
-                alert("You've clicked submit!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     runGame("addition");
+    calculateCorrectAnswer();
 
 });
 
@@ -37,12 +38,39 @@ function runGame(gameType) {
     }
 }
 
+/**
+ * Checks user answer against 1st element in 
+ * returned calculateCorrectAnswer array
+ */
 function checkAnswer() {
+
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calcAns = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calcAns[0];
+
+    let msg = isCorrect ? "Nice one, big boy" : "Try harder, small fry";
+    alert(msg);
+    
+    runGame(calcAns[1]);
 
 }
 
-function calculateCorrectScore() {
+/**
+ * Gets operands and operator directly from DOM, and returns correct answer
+ */
+function calculateCorrectAnswer() {
+    let operand1 = parseInt(document.getElementById("operand1").textContent);
+    let operand2 = parseInt(document.getElementById("operand2").textContent);
+    let operator = document.getElementById("operator").textContent;
 
+    switch (operator) {
+        case "+":
+            return [operand1 + operand2, "addition"];
+            break;
+        default:
+            alert(`Unimplemented operator: ${operator}`);
+            throw (`unimplemented operator: ${operator}... Aborting `);
+    }
 }
 
 function incrementScore() {
